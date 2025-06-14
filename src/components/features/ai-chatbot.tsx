@@ -63,20 +63,12 @@ export default function AiChatbot() {
       timestamp: new Date(),
     };
     
-    // Use a callback for setMessages to ensure we're working with the latest state
     setMessages(prevMessages => [...prevMessages, userMessage]);
     
-    // The 'pastConvo' for the AI should be the history *before* this new user message.
-    // So, we format the messages array *before* adding the current userMessage to it for the AI call.
-    // However, the form.getValues('pastConvo') will reflect history *including* the latest update from useEffect.
-    // For the AI, let's send the history that was in the form field *before* this submit cycle's message update.
-    // The form.setValue in useEffect updates 'pastConvo' *after* messages array is updated.
-    // So, data.pastConvo from the form submission already has the history *up to the previous turn*.
-
     const result = await handleAiChatbot({ 
       query: userMessageContent,
-      productDetails: data.productDetails, // This persists in the form field
-      pastConvo: data.pastConvo // This is from the read-only, auto-updated form field
+      productDetails: data.productDetails,
+      pastConvo: data.pastConvo 
     });
 
     if (result.success && result.data) {
@@ -101,7 +93,7 @@ export default function AiChatbot() {
       };
       setMessages(prevMessages => [...prevMessages, aiError]);
     }
-    form.resetField("query"); // Only reset the query field
+    form.resetField("query"); 
     setIsLoading(false);
   };
 
@@ -109,7 +101,7 @@ export default function AiChatbot() {
     <Card className="shadow-xl flex flex-col h-[calc(100vh-200px)] max-h-[700px] border border-border">
       <CardHeader>
         <CardTitle className="font-headline text-2xl flex items-center"><MessageSquare className="mr-2 h-6 w-6 text-primary" />AI Customer Chatbot</CardTitle>
-        <CardDescription>Engage with our AI assistant for automated responses to buyer queries. Context is maintained automatically.</CardDescription>
+        <CardDescription>Ask ShopMate AI about e-commerce, product discovery, our platform features, or online selling/buying advice. I'll do my best to help! Please note I can only assist with relevant topics.</CardDescription>
       </CardHeader>
       <CardContent className="flex-grow flex flex-col overflow-hidden p-0 sm:p-6">
         <ScrollArea className="flex-grow mb-4 pr-2" ref={scrollAreaRef}>
@@ -152,7 +144,7 @@ export default function AiChatbot() {
         <Form {...form}>
           <form 
             onSubmit={form.handleSubmit(onSubmit)} 
-            className="space-y-3 p-4 border-t sm:border sm:rounded-lg sm:shadow-md bg-background mt-auto"
+            className="space-y-3 p-4 border-t sm:border sm:rounded-lg sm:shadow-sm bg-background mt-auto"
           >
             <Button 
               type="button" 
@@ -230,5 +222,3 @@ export default function AiChatbot() {
     </Card>
   );
 }
-
-    
