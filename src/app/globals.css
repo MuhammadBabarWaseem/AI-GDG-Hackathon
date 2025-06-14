@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,94 +9,96 @@ body {
 
 @layer base {
   :root {
-    --background: 210 20% 95%; /* Light desaturated blue (#F0F4F7) */
-    --foreground: 224 71% 4%; /* Dark blue for text */
+    --background: 200 15% 97%; /* Very light, slightly cool gray */
+    --foreground: 210 10% 23%; /* Dark grayish blue */
 
     --card: 0 0% 100%; /* White */
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 210 10% 23%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
+    --popover-foreground: 210 10% 23%;
 
-    --primary: 210 70% 50%; /* Vibrant blue (#2998FF) */
+    --primary: 205 65% 45%; /* Strong, slightly desaturated blue */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 210 20% 85%; /* Lighter blue */
-    --secondary-foreground: 224 71% 4%;
+    --secondary: 200 15% 90%; /* Light cool gray */
+    --secondary-foreground: 210 10% 23%;
 
-    --muted: 210 20% 90%; /* Very light blue */
-    --muted-foreground: 210 10% 40%; /* Muted text color */
+    --muted: 200 15% 94%; /* Lighter cool gray */
+    --muted-foreground: 210 10% 45%; /* Medium grayish blue */
 
-    --accent: 180 60% 40%; /* Teal (#34A7A7) */
+    --accent: 175 55% 40%; /* Pleasant teal/cyan */
     --accent-foreground: 0 0% 100%; /* White */
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 210 20% 65%; /* Adjusted for better visibility */
-    --input: 210 20% 98%; /* Almost white input background */
-    --ring: 210 70% 50%; /* Primary color for rings */
+    --border: 200 15% 85%; /* Subtle border */
+    --input: 200 15% 98%; /* Almost white input background */
+    --ring: 205 65% 45%; /* Primary color for rings */
 
-    --chart-1: 210 70% 50%;
-    --chart-2: 180 60% 40%;
-    --chart-3: 25 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
-    --radius: 0.5rem; /* Standard ShadCN radius */
+    --chart-1: 205 65% 45%;
+    --chart-2: 175 55% 40%;
+    --chart-3: 30 80% 55%; /* Orange for contrast */
+    --chart-4: 260 60% 60%; /* Purple for contrast */
+    --chart-5: 330 70% 55%; /* Pink for contrast */
+    --radius: 0.375rem; /* Slightly softer radius */
 
-    /* Sidebar specific theme adjusted to new palette */
-    --sidebar-background: 210 30% 98%; /* Very Light Blue */
-    --sidebar-foreground: 224 71% 15%; /* Darker Blue for text */
-    --sidebar-primary: 210 70% 50%; /* Vibrant blue */
-    --sidebar-primary-foreground: 0 0% 100%; /* White */
-    --sidebar-accent: 210 70% 85%; /* Lighter version of primary for hover */
-    --sidebar-accent-foreground: 210 70% 30%; /* Darker blue for active/hover text */
-    --sidebar-border: 210 20% 65%; /* Adjusted border */
-    --sidebar-ring: 210 70% 50%;
+    /* Sidebar specific theme */
+    --sidebar-background: 200 20% 96%; 
+    --sidebar-foreground: 210 10% 25%;
+    --sidebar-primary: 205 65% 45%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 205 65% 88%; 
+    --sidebar-accent-foreground: 205 65% 30%;
+    --sidebar-border: 200 15% 80%;
+    --sidebar-ring: 205 65% 45%;
   }
 
   .dark {
-    --background: 224 71% 10%; /* Dark blue */
-    --foreground: 210 20% 95%; /* Light desaturated blue */
+    --background: 210 15% 12%; /* Dark, cool grayish blue */
+    --foreground: 200 15% 90%; /* Light cool gray */
 
-    --card: 224 71% 15%; /* Darker blue */
-    --card-foreground: 210 20% 95%;
+    --card: 210 15% 17%; /* Slightly lighter than background */
+    --card-foreground: 200 15% 90%;
 
-    --popover: 224 71% 10%;
-    --popover-foreground: 210 20% 95%;
+    --popover: 210 15% 12%;
+    --popover-foreground: 200 15% 90%;
 
-    --primary: 210 70% 50%; /* Vibrant blue */
-    --primary-foreground: 0 0% 100%; /* White */
+    --primary: 205 70% 55%; /* Brighter blue for dark mode */
+    --primary-foreground: 210 30% 15%; /* Dark text on primary */
 
-    --secondary: 224 71% 20%; /* Darker shade of blue */
-    --secondary-foreground: 210 20% 95%;
+    --secondary: 210 15% 25%; /* Darker shade of cool gray */
+    --secondary-foreground: 200 15% 90%;
 
-    --muted: 224 71% 25%; /* Even darker shade */
-    --muted-foreground: 210 15% 65%;
+    --muted: 210 15% 20%; /* Even darker shade */
+    --muted-foreground: 200 15% 60%;
 
-    --accent: 180 60% 40%; /* Teal */
-    --accent-foreground: 0 0% 100%;
+    --accent: 175 60% 50%; /* Brighter teal/cyan for dark mode */
+    --accent-foreground: 210 30% 10%; /* Dark text on accent */
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 65% 50%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 224 70% 35%; /* Adjusted dark theme border */
-    --input: 224 71% 20%;
-    --ring: 210 70% 50%;
+    --border: 210 15% 30%; /* Subtle dark border */
+    --input: 210 15% 22%;
+    --ring: 205 70% 55%;
 
-    --chart-1: 210 70% 50%;
-    --chart-2: 180 60% 40%;
-    /* ... other dark chart colors */
+    --chart-1: 205 70% 55%;
+    --chart-2: 175 60% 50%;
+    --chart-3: 30 75% 60%;
+    --chart-4: 260 65% 65%;
+    --chart-5: 330 75% 60%;
 
-    /* Dark Sidebar specific theme adjusted to new palette */
-    --sidebar-background: 224 71% 8%; /* Very Dark Blue */
-    --sidebar-foreground: 210 20% 85%; /* Lighter Blue for text */
-    --sidebar-primary: 210 70% 50%; /* Vibrant blue */
-    --sidebar-primary-foreground: 0 0% 100%; /* White */
-    --sidebar-accent: 210 70% 25%; /* Darker version of primary for hover */
-    --sidebar-accent-foreground: 210 70% 75%; /* Lighter blue for active/hover text */
-    --sidebar-border: 224 70% 35%; /* Adjusted border */
-    --sidebar-ring: 210 70% 50%;
+    /* Dark Sidebar specific theme */
+    --sidebar-background: 210 15% 10%; 
+    --sidebar-foreground: 200 15% 85%;
+    --sidebar-primary: 205 70% 55%;
+    --sidebar-primary-foreground: 210 30% 15%;
+    --sidebar-accent: 205 70% 25%; 
+    --sidebar-accent-foreground: 205 70% 75%;
+    --sidebar-border: 210 15% 25%;
+    --sidebar-ring: 205 70% 55%;
   }
 }
 
