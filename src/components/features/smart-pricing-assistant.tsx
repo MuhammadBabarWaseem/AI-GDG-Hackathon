@@ -32,16 +32,22 @@ export default function SmartPricingAssistant() {
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { productDetails: '', currentPrice: undefined, marketTrends: '', competitorPrices: '' },
+    defaultValues: { productDetails: '', currentPrice: '', marketTrends: '', competitorPrices: '' },
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
     setIsLoading(true);
     setPricingResult(null);
-    const result = await handleSuggestCompetitivePrice(data);
+    // data.currentPrice will be a number due to Zod transform/preprocess
+    const numericCurrentPrice = typeof data.currentPrice === 'string' ? parseFloat(data.currentPrice) : data.currentPrice;
+
+    const result = await handleSuggestCompetitivePrice({
+        ...data,
+        currentPrice: numericCurrentPrice,
+    });
 
     if (result.success && result.data) {
-      setPricingResult({ ...result.data, currentPrice: data.currentPrice });
+      setPricingResult({ ...result.data, currentPrice: numericCurrentPrice });
     } else {
       toast({
         variant: "destructive",

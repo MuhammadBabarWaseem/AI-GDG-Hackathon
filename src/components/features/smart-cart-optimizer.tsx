@@ -20,7 +20,7 @@ import { Lightbulb, ShoppingCart, ThumbsUp } from 'lucide-react';
 const FormSchema = z.object({
   cartItems: z.string().min(3, { message: "Please list at least one item." }),
   budget: z.preprocess(
-    (val) => (val === "" ? undefined : Number(val)),
+    (val) => (val === "" || val === undefined || val === null ? undefined : Number(val)),
     z.number().positive({ message: "Budget must be a positive number." }).optional()
   ),
 });
@@ -32,13 +32,20 @@ export default function SmartCartOptimizer() {
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { cartItems: '', budget: undefined },
+    defaultValues: { cartItems: '', budget: '' }, // Changed budget to ''
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
     setIsLoading(true);
     setOptimizationResult(null);
-    const result = await handleSmartCartOptimizer(data);
+    
+    // Ensure budget is a number or undefined before sending to the action
+    const processedData = {
+      ...data,
+      budget: data.budget === '' || data.budget === undefined || data.budget === null ? undefined : Number(data.budget),
+    };
+
+    const result = await handleSmartCartOptimizer(processedData);
 
     if (result.success && result.data) {
       setOptimizationResult(result.data);
