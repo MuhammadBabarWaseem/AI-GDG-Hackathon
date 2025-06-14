@@ -129,7 +129,7 @@ export default function AiChatbot() {
         <Form {...form}>
           <form 
             onSubmit={form.handleSubmit(onSubmit)} 
-            className="space-y-4 p-4 border-t sm:border sm:rounded-lg sm:shadow-sm bg-card mt-auto"
+            className="space-y-4 p-4 border-t sm:border sm:rounded-lg sm:shadow-md bg-background mt-auto"
           >
             <Button 
               type="button" 

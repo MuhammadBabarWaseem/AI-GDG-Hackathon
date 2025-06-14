@@ -53,7 +53,7 @@ export default function HomePage() {
             <TabsTrigger 
               key={feature.value} 
               value={feature.value} 
-              className="flex-col sm:flex-row items-center justify-center h-auto py-2.5 px-3 data-[state=active]:shadow-lg data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-primary/50 data-[state=active]:border-b-2"
+              className="flex-col sm:flex-row items-center justify-center h-auto py-2.5 px-3 data-[state=active]:shadow-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:border-b-4"
             >
               {feature.icon}
               <span className="mt-1 sm:mt-0 text-xs sm:text-sm text-center sm:text-left leading-tight">{feature.label}</span>
