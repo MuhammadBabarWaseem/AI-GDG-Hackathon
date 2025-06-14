@@ -8,7 +8,7 @@ const AppHeader = () => {
         <Link href="/" className="flex items-center gap-3 group">
           <LogoIcon className="h-9 w-9 text-primary transition-transform duration-300 group-hover:scale-110" />
           <div>
-            <h1 className="text-2xl font-headline font-bold text-primary transition-colors duration-300 group-hover:text-primary/80">ShopMate AI</h1>
+            <h1 className="text-2xl font-headline font-bold text-primary transition-colors duration-300 group-hover:text-primary/80">SmartCart</h1>
             <p className="text-xs text-muted-foreground font-body transition-colors duration-300 group-hover:text-accent">Shop smarter. Sell better. Powered by AI.</p>
           </div>
         </Link>

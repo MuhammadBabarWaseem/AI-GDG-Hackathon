@@ -107,7 +107,7 @@ export default function ConversationalProductDiscovery() {
                 <div key={msg.id} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[75%] p-3 rounded-lg shadow ${msg.type === 'user' ? 'bg-primary text-primary-foreground' : 'bg-card'}`}>
                     {msg.type === 'user' && <div className="flex items-center gap-2 mb-1"><User className="h-5 w-5" /><span className="font-semibold">You</span></div>}
-                    {msg.type === 'ai' && <div className="flex items-center gap-2 mb-1"><Bot className="h-5 w-5 text-accent" /><span className="font-semibold text-accent">ShopMate AI</span></div>}
+                    {msg.type === 'ai' && <div className="flex items-center gap-2 mb-1"><Bot className="h-5 w-5 text-accent" /><span className="font-semibold text-accent">SmartCart</span></div>}
                     
                     {typeof msg.content === 'string' ? (
                       <p className="text-sm">{msg.content}</p>
@@ -128,7 +128,7 @@ export default function ConversationalProductDiscovery() {
                {isLoading && messages[messages.length -1].type === 'user' && (
                 <div className="flex justify-start">
                   <div className="max-w-[75%] p-3 rounded-lg shadow bg-card">
-                    <div className="flex items-center gap-2 mb-1"><Bot className="h-5 w-5 text-accent" /><span className="font-semibold text-accent">ShopMate AI</span></div>
+                    <div className="flex items-center gap-2 mb-1"><Bot className="h-5 w-5 text-accent" /><span className="font-semibold text-accent">SmartCart</span></div>
                     <div className="space-y-2">
                       <Skeleton className="h-4 w-[200px]" />
                       <Skeleton className="h-4 w-[150px]" />

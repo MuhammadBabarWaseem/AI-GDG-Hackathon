@@ -5,7 +5,7 @@ import AppHeader from '@/components/layout/header';
 import AppFooter from '@/components/layout/footer';
 
 export const metadata: Metadata = {
-  title: 'ShopMate AI',
+  title: 'SmartCart',
   description: 'Shop smarter. Sell better. Powered by AI.',
 };
 

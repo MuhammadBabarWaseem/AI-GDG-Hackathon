@@ -101,7 +101,7 @@ export default function AiChatbot() {
     <Card className="shadow-xl flex flex-col h-[calc(100vh-200px)] max-h-[700px] border border-border">
       <CardHeader>
         <CardTitle className="font-headline text-2xl flex items-center"><MessageSquare className="mr-2 h-6 w-6 text-primary" />AI Customer Chatbot</CardTitle>
-        <CardDescription>Ask ShopMate AI anything! I'll do my best to help with your questions, drawing on context like product details or our past conversation if you provide it.</CardDescription>
+        <CardDescription>Ask SmartCart anything! I'll do my best to help with your questions, drawing on context like product details or our past conversation if you provide it.</CardDescription>
       </CardHeader>
       <CardContent className="flex-grow flex flex-col overflow-hidden p-0 sm:p-6">
         <ScrollArea className="flex-grow mb-4 pr-2" ref={scrollAreaRef}>
@@ -111,7 +111,7 @@ export default function AiChatbot() {
                 <div className={`max-w-[80%] p-3 rounded-xl shadow-md ${msg.sender === 'user' ? 'bg-primary text-primary-foreground' : 'bg-card border'}`}>
                   <div className="flex items-center gap-2 mb-1">
                     {msg.sender === 'user' ? <User className="h-5 w-5" /> : <Bot className="h-5 w-5 text-accent" />}
-                    <span className="font-semibold text-sm">{msg.sender === 'user' ? 'You' : 'ShopMate AI'}</span>
+                    <span className="font-semibold text-sm">{msg.sender === 'user' ? 'You' : 'SmartCart'}</span>
                     <span className="text-xs opacity-70">{msg.timestamp.toLocaleTimeString()}</span>
                   </div>
                   <p className="text-sm whitespace-pre-wrap">{typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)}</p>
@@ -123,7 +123,7 @@ export default function AiChatbot() {
                 <div className="max-w-[80%] p-3 rounded-xl shadow-md bg-card border">
                   <div className="flex items-center gap-2 mb-1">
                      <Bot className="h-5 w-5 text-accent" />
-                    <span className="font-semibold text-sm">ShopMate AI</span>
+                    <span className="font-semibold text-sm">SmartCart</span>
                   </div>
                   <div className="space-y-1">
                     <Skeleton className="h-3 w-[50px]" />

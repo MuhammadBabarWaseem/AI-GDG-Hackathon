@@ -32,7 +32,7 @@ const prompt = ai.definePrompt({
   name: 'aiChatbotPrompt',
   input: {schema: AiChatbotInputSchema},
   output: {schema: AiChatbotOutputSchema},
-  prompt: `You are ShopMate AI, a helpful and versatile assistant. Your goal is to provide informative and relevant responses to user queries on a wide range of topics.
+  prompt: `You are SmartCart, a helpful and versatile assistant. Your goal is to provide informative and relevant responses to user queries on a wide range of topics.
 
 When relevant, consider the following information to enhance your response:
 {{#if productDetails}}

@@ -1,4 +1,4 @@
-# **App Name**: ShopMate AI
+# **App Name**: SmartCart
 
 ## Core Features:
 
