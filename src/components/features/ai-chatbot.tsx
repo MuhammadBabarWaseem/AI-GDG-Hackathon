@@ -101,7 +101,7 @@ export default function AiChatbot() {
     <Card className="shadow-xl flex flex-col h-[calc(100vh-200px)] max-h-[700px] border border-border">
       <CardHeader>
         <CardTitle className="font-headline text-2xl flex items-center"><MessageSquare className="mr-2 h-6 w-6 text-primary" />AI Customer Chatbot</CardTitle>
-        <CardDescription>Ask ShopMate AI about e-commerce, product discovery, our platform features, or online selling/buying advice. I'll do my best to help! Please note I can only assist with relevant topics.</CardDescription>
+        <CardDescription>Ask ShopMate AI anything! I'll do my best to help with your questions, drawing on context like product details or our past conversation if you provide it.</CardDescription>
       </CardHeader>
       <CardContent className="flex-grow flex flex-col overflow-hidden p-0 sm:p-6">
         <ScrollArea className="flex-grow mb-4 pr-2" ref={scrollAreaRef}>

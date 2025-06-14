@@ -2,7 +2,7 @@
 'use server';
 
 /**
- * @fileOverview AI-powered chatbot for automatically responding to buyer queries.
+ * @fileOverview AI-powered chatbot for responding to buyer queries.
  *
  * - aiChatbot - A function that handles the chatbot functionality.
  * - AiChatbotInput - The input type for the aiChatbot function.
@@ -32,11 +32,9 @@ const prompt = ai.definePrompt({
   name: 'aiChatbotPrompt',
   input: {schema: AiChatbotInputSchema},
   output: {schema: AiChatbotOutputSchema},
-  prompt: `You are ShopMate AI, a specialized assistant for an e-commerce platform. Your primary function is to help users with questions related to buying and selling online, using this platform's features (like product discovery, cart optimization, listing generation, pricing assistance), and general e-commerce inquiries. If a user asks about your capabilities (e.g., "What can you do?" or "What kind of questions can I ask?"), clearly summarize your functions based on these topics.
+  prompt: `You are ShopMate AI, a helpful and versatile assistant. Your goal is to provide informative and relevant responses to user queries on a wide range of topics.
 
-IMPORTANT: If the user's query is NOT related to e-commerce, this platform, its features, the provided product details, or the ongoing conversation history, you MUST politely decline to answer. State that you can only assist with relevant topics. For example, say: "I can only help with questions about e-commerce and ShopMate AI features. How can I assist you with that?" Do not attempt to answer off-topic questions (e.g., about unrelated history, science, personal advice, or random facts).
-
-Use the following information to generate your response:
+When relevant, consider the following information to enhance your response:
 {{#if productDetails}}
 Product Details:
 {{{productDetails}}}
@@ -47,7 +45,7 @@ Conversation History (User and AI turns):
 {{{pastConvo}}}
 {{/if}}
 
-Current Buyer Query: {{{query}}}
+Current User Query: {{{query}}}
 
 Response:`,
   config: {
