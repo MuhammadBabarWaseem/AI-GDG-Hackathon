@@ -1,3 +1,4 @@
+
 'use server';
 
 /**
@@ -14,7 +15,7 @@ import {z} from 'genkit';
 const AiChatbotInputSchema = z.object({
   query: z.string().describe('The buyer query.'),
   productDetails: z.string().optional().describe('Details about the product the buyer is asking about.'),
-  pastConvo: z.string().optional().describe('Past conversation history'),
+  pastConvo: z.string().optional().describe('Past conversation history (automatically managed). Each turn prefixed by "User: " or "AI: ".'),
 });
 export type AiChatbotInput = z.infer<typeof AiChatbotInputSchema>;
 
@@ -31,16 +32,32 @@ const prompt = ai.definePrompt({
   name: 'aiChatbotPrompt',
   input: {schema: AiChatbotInputSchema},
   output: {schema: AiChatbotOutputSchema},
-  prompt: `You are a helpful AI chatbot assisting sellers in responding to buyer queries.
+  prompt: `You are ShopMate AI, a specialized assistant for an e-commerce platform. Your primary function is to help users with questions related to buying and selling online, using this platform's features (like product discovery, cart optimization, listing generation, pricing assistance), and general e-commerce inquiries.
 
-  You should provide informative and helpful responses based on the buyer's query and the available product details.
+IMPORTANT: If the user's query is NOT related to e-commerce, this platform, its features, the provided product details, or the ongoing conversation history, you MUST politely decline to answer. State that you can only assist with relevant topics. For example, say: "I can only help with questions about e-commerce and ShopMate AI features. How can I assist you with that?" Do not attempt to answer off-topic questions (e.g., about unrelated history, science, personal advice, or random facts).
 
-  The Past Conversation History is: {{{pastConvo}}}
+Use the following information to generate your response:
+{{#if productDetails}}
+Product Details:
+{{{productDetails}}}
+{{/if}}
 
-  Buyer Query: {{{query}}}
-  Product Details: {{{productDetails}}}
+{{#if pastConvo}}
+Conversation History (User and AI turns):
+{{{pastConvo}}}
+{{/if}}
 
-  Response: `,
+Current Buyer Query: {{{query}}}
+
+Response:`,
+  config: {
+    safetySettings: [
+      { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+      { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+      { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+      { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+    ],
+  },
 });
 
 const aiChatbotFlow = ai.defineFlow(
@@ -54,3 +71,5 @@ const aiChatbotFlow = ai.defineFlow(
     return output!;
   }
 );
+
+    

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, useEffect } from 'react';
@@ -19,8 +20,14 @@ import { Bot, MessageSquare, Send, User, Info, MessageCircle } from 'lucide-reac
 const FormSchema = z.object({
   query: z.string().min(1, { message: "Query cannot be empty." }),
   productDetails: z.string().optional(),
-  pastConvo: z.string().optional(),
+  pastConvo: z.string().optional(), // This will be auto-populated and read-only
 });
+
+const formatMessagesToHistory = (messages: ChatMessage[]): string => {
+  return messages
+    .map(msg => `${msg.sender === 'user' ? 'User' : 'AI'}: ${typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content)}`)
+    .join('\n');
+};
 
 export default function AiChatbot() {
   const [isLoading, setIsLoading] = useState(false);
@@ -40,21 +47,36 @@ export default function AiChatbot() {
     }
   }, [messages]);
 
+  useEffect(() => {
+    // Auto-update the pastConvo form field when messages change
+    const conversationHistory = formatMessagesToHistory(messages);
+    form.setValue('pastConvo', conversationHistory);
+  }, [messages, form]);
+
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
     setIsLoading(true);
+    const userMessageContent = data.query;
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
       sender: 'user',
-      content: data.query,
+      content: userMessageContent,
       timestamp: new Date(),
     };
-    setMessages(prev => [...prev, userMessage]);
-    form.resetField("query"); 
+    
+    // Use a callback for setMessages to ensure we're working with the latest state
+    setMessages(prevMessages => [...prevMessages, userMessage]);
+    
+    // The 'pastConvo' for the AI should be the history *before* this new user message.
+    // So, we format the messages array *before* adding the current userMessage to it for the AI call.
+    // However, the form.getValues('pastConvo') will reflect history *including* the latest update from useEffect.
+    // For the AI, let's send the history that was in the form field *before* this submit cycle's message update.
+    // The form.setValue in useEffect updates 'pastConvo' *after* messages array is updated.
+    // So, data.pastConvo from the form submission already has the history *up to the previous turn*.
 
     const result = await handleAiChatbot({ 
-      query: data.query,
-      productDetails: data.productDetails,
-      pastConvo: data.pastConvo
+      query: userMessageContent,
+      productDetails: data.productDetails, // This persists in the form field
+      pastConvo: data.pastConvo // This is from the read-only, auto-updated form field
     });
 
     if (result.success && result.data) {
@@ -64,7 +86,7 @@ export default function AiChatbot() {
         content: result.data.response,
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, aiMessage]);
+      setMessages(prevMessages => [...prevMessages, aiMessage]);
     } else {
       toast({
         variant: "destructive",
@@ -77,16 +99,17 @@ export default function AiChatbot() {
         content: "Sorry, I encountered an error. Please try again.",
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, aiError]);
+      setMessages(prevMessages => [...prevMessages, aiError]);
     }
+    form.resetField("query"); // Only reset the query field
     setIsLoading(false);
   };
 
   return (
-    <Card className="shadow-xl flex flex-col h-[calc(100vh-200px)] max-h-[700px]">
+    <Card className="shadow-xl flex flex-col h-[calc(100vh-200px)] max-h-[700px] border border-border">
       <CardHeader>
         <CardTitle className="font-headline text-2xl flex items-center"><MessageSquare className="mr-2 h-6 w-6 text-primary" />AI Customer Chatbot</CardTitle>
-        <CardDescription>Engage with our AI assistant for automated responses to buyer queries.</CardDescription>
+        <CardDescription>Engage with our AI assistant for automated responses to buyer queries. Context is maintained automatically.</CardDescription>
       </CardHeader>
       <CardContent className="flex-grow flex flex-col overflow-hidden p-0 sm:p-6">
         <ScrollArea className="flex-grow mb-4 pr-2" ref={scrollAreaRef}>
@@ -129,14 +152,14 @@ export default function AiChatbot() {
         <Form {...form}>
           <form 
             onSubmit={form.handleSubmit(onSubmit)} 
-            className="space-y-4 p-4 border-t sm:border sm:rounded-lg sm:shadow-md bg-background mt-auto"
+            className="space-y-3 p-4 border-t sm:border sm:rounded-lg sm:shadow-md bg-background mt-auto"
           >
             <Button 
               type="button" 
               variant="outline" 
               size="sm" 
               onClick={() => setShowOptionalFields(!showOptionalFields)}
-              className="mb-2 text-xs"
+              className="mb-1 text-xs py-1 h-auto"
             >
               <Info className="mr-1 h-3 w-3" /> {showOptionalFields ? 'Hide' : 'Show'} Optional Context
             </Button>
@@ -148,9 +171,9 @@ export default function AiChatbot() {
                   name="productDetails"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xs">Product Details (Optional)</FormLabel>
+                      <FormLabel className="text-xs">Product Details (Optional & Persistent)</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="e.g., Specifics about the product in question..." {...field} rows={2} className="text-sm" aria-label="Optional product details"/>
+                        <Textarea placeholder="e.g., Specifics about the product in question..." {...field} rows={3} className="text-sm" aria-label="Optional product details"/>
                       </FormControl>
                     </FormItem>
                   )}
@@ -160,9 +183,16 @@ export default function AiChatbot() {
                   name="pastConvo"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xs">Past Conversation (Optional)</FormLabel>
+                      <FormLabel className="text-xs">Current Conversation (Auto-Managed)</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="e.g., User: Hi! AI: Hello..." {...field} rows={2} className="text-sm" aria-label="Optional past conversation history"/>
+                        <Textarea 
+                          placeholder="Conversation history will appear here..." 
+                          {...field} 
+                          rows={3} 
+                          className="text-sm bg-input/50" 
+                          aria-label="Automatically managed past conversation history"
+                          readOnly 
+                        />
                       </FormControl>
                     </FormItem>
                   )}
@@ -200,3 +230,5 @@ export default function AiChatbot() {
     </Card>
   );
 }
+
+    
