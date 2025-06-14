@@ -50,7 +50,11 @@ export default function HomePage() {
       <Tabs defaultValue={features[0].value} className="w-full">
         <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mb-6 h-auto p-1.5">
           {features.map((feature) => (
-            <TabsTrigger key={feature.value} value={feature.value} className="flex-col sm:flex-row items-center justify-center h-auto py-2.5 px-3 data-[state=active]:shadow-md">
+            <TabsTrigger 
+              key={feature.value} 
+              value={feature.value} 
+              className="flex-col sm:flex-row items-center justify-center h-auto py-2.5 px-3 data-[state=active]:shadow-lg data-[state=active]:bg-primary/10 data-[state=active]:text-primary data-[state=active]:border-primary/50 data-[state=active]:border-b-2"
+            >
               {feature.icon}
               <span className="mt-1 sm:mt-0 text-xs sm:text-sm text-center sm:text-left leading-tight">{feature.label}</span>
             </TabsTrigger>

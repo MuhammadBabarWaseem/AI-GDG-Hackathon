@@ -5,7 +5,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input'; // Changed from Textarea for single-line query
+import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -49,7 +49,7 @@ export default function AiChatbot() {
       timestamp: new Date(),
     };
     setMessages(prev => [...prev, userMessage]);
-    form.resetField("query"); // Clear only the query field
+    form.resetField("query"); 
 
     const result = await handleAiChatbot({ 
       query: data.query,
@@ -127,7 +127,10 @@ export default function AiChatbot() {
         </ScrollArea>
         
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 border-t pt-4">
+          <form 
+            onSubmit={form.handleSubmit(onSubmit)} 
+            className="space-y-4 p-4 border-t sm:border sm:rounded-lg sm:shadow-sm bg-card mt-auto"
+          >
             <Button 
               type="button" 
               variant="outline" 
