@@ -41,22 +41,22 @@ export default function HomePage() {
       label: "AI Chatbot",
       icon: <MessageSquare className="mr-2 h-5 w-5" />,
       component: <AiChatbot />,
-      description: "Automated customer support."
+      description: "Your versatile AI assistant."
     },
   ];
 
   return (
     <div className="w-full max-w-5xl mx-auto py-8">
       <Tabs defaultValue={features[0].value} className="w-full">
-        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mb-6 h-auto p-1.5">
+        <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 mb-8 h-auto bg-card shadow-md rounded-lg p-2 border">
           {features.map((feature) => (
             <TabsTrigger 
               key={feature.value} 
               value={feature.value} 
-              className="flex-col sm:flex-row items-center justify-center h-auto py-2.5 px-3 data-[state=active]:shadow-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:border-b-4"
+              className="flex-col sm:flex-row items-center justify-center h-auto py-3 px-3.5 text-foreground/80 hover:text-primary transition-colors duration-200 data-[state=active]:shadow-lg data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:border-b-4 rounded-md"
             >
               {feature.icon}
-              <span className="mt-1 sm:mt-0 text-xs sm:text-sm text-center sm:text-left leading-tight">{feature.label}</span>
+              <span className="mt-1 sm:mt-0 text-xs sm:text-sm text-center sm:text-left leading-tight font-medium">{feature.label}</span>
             </TabsTrigger>
           ))}
         </TabsList>

@@ -9,9 +9,9 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <Card className="flex flex-col h-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-border hover:border-primary/80 rounded-lg">
+    <Card className="group flex flex-col h-full overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-border hover:border-primary rounded-lg">
       <CardHeader className="p-0">
-        <div className="relative w-full aspect-square">
+        <div className="relative w-full aspect-square overflow-hidden">
           <Image
             src={product.imageUrl || `https://placehold.co/400x400.png`}
             alt={product.name}
@@ -23,11 +23,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </CardHeader>
       <CardContent className="p-4 flex-grow">
-        <CardTitle className="text-lg font-headline mb-2 line-clamp-2">{product.name}</CardTitle>
+        <CardTitle className="text-lg font-headline mb-2 line-clamp-2 group-hover:text-primary transition-colors">{product.name}</CardTitle>
         <p className="text-sm text-muted-foreground line-clamp-3 font-body">{product.description}</p>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
-        <Badge variant="secondary" className="text-base font-semibold font-body">
+      <CardFooter className="p-4 pt-2">
+        <Badge variant="secondary" className="text-base font-semibold font-body text-accent group-hover:bg-accent/20 group-hover:border-accent/50 transition-colors">
           ${product.price.toFixed(2)}
         </Badge>
       </CardFooter>
