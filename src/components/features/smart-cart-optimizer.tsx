@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from '@/components/ui/form';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
@@ -32,14 +32,13 @@ export default function SmartCartOptimizer() {
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: { cartItems: '', budget: '' }, // Changed budget to ''
+    defaultValues: { cartItems: '', budget: '' }, 
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (data) => {
     setIsLoading(true);
     setOptimizationResult(null);
     
-    // Ensure budget is a number or undefined before sending to the action
     const processedData = {
       ...data,
       budget: data.budget === '' || data.budget === undefined || data.budget === null ? undefined : Number(data.budget),
@@ -97,7 +96,7 @@ export default function SmartCartOptimizer() {
                 <FormItem>
                   <FormLabel>Optional: Your Budget ($)</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="e.g., 500" {...field} aria-label="Budget input" />
+                    <Input type="number" placeholder="e.g., 500" {...field} value={field.value ?? ''} aria-label="Budget input" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
